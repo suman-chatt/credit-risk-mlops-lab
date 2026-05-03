@@ -1,0 +1,24 @@
+feature,feature_type,psi,js_distance,psi_flag,js_flag,recommended_action
+WLOG005,numeric,0.0,0.0,green,green,No action required
+BLOG005,numeric,0.0,0.0,green,green,No action required
+BNB018,numeric,0.0,0.0,green,green,No action required
+NN008,numeric,0.0,0.0,green,green,No action required
+CAT002,numeric,0.0,0.0,green,green,No action required
+XGBSTACK001,numeric,0.0,0.0,green,green,No action required
+RevolvingUtilization_capped,numeric,0.0,0.0,green,green,No action required
+age,numeric,0.0,0.0,green,green,No action required
+age_sq,numeric,0.0,0.0,green,green,No action required
+NumberOfTime30-59DaysPastDueNotWorse,numeric,0.0,0.0,green,green,No action required
+DebtRatio_capped,numeric,0.0,0.0,green,green,No action required
+MonthlyIncome_median,numeric,0.0,0.0,green,green,No action required
+NumberOfOpenCreditLinesAndLoans,numeric,0.0,0.0,green,green,No action required
+NumberOfTimes90DaysLate,numeric,0.0,0.0,green,green,No action required
+NumberRealEstateLoansOrLines,numeric,0.0,0.0,green,green,No action required
+NumberOfTime60-89DaysPastDueNotWorse,numeric,0.0,0.0,green,green,No action required
+NumberOfDependents_median,numeric,0.0,0.0,green,green,No action required
+RevolvingUtilization_log,numeric,0.0,0.0,green,green,No action required
+DebtRatio_log,numeric,0.0,0.0,green,green,No action required
+MonthlyIncome_missing_flag,numeric,0.0,0.0,green,green,No action required
+NumberOfDependents_missing_flag,numeric,0.0,0.0,green,green,No action required
+DebtRatio_high_flag,numeric,0.0,0.0,green,green,No action required
+RevolvingUtilization_high_flag,numeric,0.0,0.0,green,green,No action required

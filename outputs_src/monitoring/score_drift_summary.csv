@@ -1,0 +1,7 @@
+feature,feature_type,psi,js_distance,wasserstein_distance,psi_flag,js_flag,wasserstein_flag
+WLOG005,numeric,0.0,0.0,0.0,green,green,review
+BLOG005,numeric,0.0,0.0,0.0,green,green,review
+BNB018,numeric,0.0,0.0,0.0,green,green,review
+NN008,numeric,0.0,0.0,0.0,green,green,review
+CAT002,numeric,0.0,0.0,0.0,green,green,review
+XGBSTACK001,numeric,0.0,0.0,0.0,green,green,review

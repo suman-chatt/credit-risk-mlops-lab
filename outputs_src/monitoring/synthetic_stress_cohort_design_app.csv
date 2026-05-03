@@ -1,0 +1,6 @@
+cohort,cohort_size,high_risk_mix,actual_default_rate
+baseline_mix,8000,0.15,0.06875
+mild_risk_shift,8000,0.2,0.083
+moderate_risk_shift,8000,0.25,0.1005
+high_risk_shift,8000,0.3,0.116625
+severe_risk_shift,8000,0.35,0.127625
