@@ -36,6 +36,15 @@ outputs/
 outputs_src/
 
 # -----------------------------
+# REQUIRED for Streamlit app (ALLOW)
+# -----------------------------
+!outputs_src/
+!outputs_src/registry/
+!outputs_src/registry/model_summary.csv
+!outputs_src/scoring/
+!outputs_src/scoring/*.csv
+
+# -----------------------------
 # ML / training artifacts
 # -----------------------------
 mlruns/
