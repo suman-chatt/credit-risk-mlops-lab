@@ -1,6 +1,6 @@
 # Credit Risk Modeling & Model Risk Framework
 
-🔗 **Live Interactive Dashboard:** [ADD_YOUR_STREAMLIT_LINK_HERE]
+🔗 **Live Interactive Dashboard:** https://credit-risk-mlops-lab.streamlit.app
 
 End-to-end credit risk system designed to mirror real-world banking workflows — from raw borrower data to production-style decision outputs.
 
