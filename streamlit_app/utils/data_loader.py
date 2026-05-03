@@ -13,18 +13,22 @@ OUTPUTS_DIR = PROJECT_ROOT / "outputs_src"
 
 
 @st.cache_data
-def load_base_registry() -> pd.DataFrame:
+def load_ensemble_registry() -> pd.DataFrame:
     project_root = Path.cwd()
 
     candidate_paths = [
-        project_root / "outputs_src" / "registry" / "model_summary.csv",
-        project_root / "outputs_src" / "registry" / "model_summary.parquet",
-        project_root / "artifacts" / "registry" / "model_summary.csv",
-        project_root / "artifacts" / "registry" / "model_summary.parquet",
+        project_root / "outputs_src" / "ensemble_registry.xlsx",
+        project_root / "outputs_src" / "ensemble_registry.csv",
+        project_root / "outputs_src" / "ensemble_registry.parquet",
+        project_root / "artifacts" / "ensemble_registry.xlsx",
+        project_root / "artifacts" / "ensemble_registry.csv",
+        project_root / "artifacts" / "ensemble_registry.parquet",
     ]
 
     for path in candidate_paths:
         if path.exists():
+            if path.suffix == ".xlsx":
+                return pd.read_excel(path)
             if path.suffix == ".csv":
                 return pd.read_csv(path)
             if path.suffix == ".parquet":
