@@ -96,7 +96,7 @@ def load_performance_file(path: Path) -> pd.DataFrame:
 
 registry_df = load_registry()
 lift_df = load_diag_file("lift_tables.csv")
-ks_df = load_diag_file("ks_curves.csv")
+ks_df = load_diag_file("ks_curves_sample.csv")
 calibration_df = load_diag_file("calibration_tables.csv")
 
 if registry_df.empty:

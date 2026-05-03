@@ -90,6 +90,16 @@ outputs_src/performance/model_validation_predictions.csv
 outputs_src/diagnostics/ks_curves.csv
 outputs_src/diagnostics/roc_curves.csv
 
+# diagnostics needed for Streamlit performance page
+!outputs_src/diagnostics/
+!outputs_src/diagnostics/lift_tables.csv
+!outputs_src/diagnostics/calibration_tables.csv
+!outputs_src/diagnostics/ks_curves_sample.csv
+
+# performance needed for Streamlit performance page
+!outputs_src/performance/
+!outputs_src/performance/threshold_analysis.csv
+
 # -----------------------------
 # ML artifacts
 # -----------------------------

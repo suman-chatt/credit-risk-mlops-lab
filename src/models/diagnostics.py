@@ -4,6 +4,7 @@ from sklearn.metrics import roc_curve
 from sklearn.calibration import calibration_curve
 
 
+
 def generate_calibration_table(
     y_true,
     y_score,
