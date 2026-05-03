@@ -20,9 +20,6 @@ def read_table(path: Path) -> pd.DataFrame:
     if path.suffix == ".xlsx":
         return pd.read_excel(path)
 
-    if path.suffix == ".parquet":
-        return pd.read_parquet(path)
-
     return pd.DataFrame()
 
 
@@ -31,7 +28,6 @@ def load_base_registry() -> pd.DataFrame:
     candidate_paths = [
         OUTPUTS_DIR / "registry" / "model_summary.csv",
         OUTPUTS_DIR / "registry" / "model_summary.xlsx",
-        OUTPUTS_DIR / "registry" / "model_summary.parquet",
         OUTPUTS_DIR / "model_registry.xlsx",
     ]
 
