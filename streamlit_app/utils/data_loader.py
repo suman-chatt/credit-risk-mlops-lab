@@ -1,59 +1,69 @@
 from pathlib import Path
+import ast
+import re
 
 import pandas as pd
 import streamlit as st
-import ast
-import re
-from pathlib import Path
+
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 OUTPUTS_DIR = PROJECT_ROOT / "outputs_src"
 
 
+def read_table(path: Path) -> pd.DataFrame:
+    if not path.exists():
+        return pd.DataFrame()
+
+    if path.suffix == ".csv":
+        return pd.read_csv(path)
+
+    if path.suffix == ".xlsx":
+        return pd.read_excel(path)
+
+    if path.suffix == ".parquet":
+        return pd.read_parquet(path)
+
+    return pd.DataFrame()
 
 
 @st.cache_data
-def load_ensemble_registry() -> pd.DataFrame:
-    project_root = Path.cwd()
-
+def load_base_registry() -> pd.DataFrame:
     candidate_paths = [
-        project_root / "outputs_src" / "ensemble_registry.xlsx",
-        project_root / "outputs_src" / "ensemble_registry.csv",
-        project_root / "outputs_src" / "ensemble_registry.parquet",
-        project_root / "artifacts" / "ensemble_registry.xlsx",
-        project_root / "artifacts" / "ensemble_registry.csv",
-        project_root / "artifacts" / "ensemble_registry.parquet",
+        OUTPUTS_DIR / "registry" / "model_summary.csv",
+        OUTPUTS_DIR / "registry" / "model_summary.xlsx",
+        OUTPUTS_DIR / "registry" / "model_summary.parquet",
+        OUTPUTS_DIR / "model_registry.xlsx",
     ]
 
     for path in candidate_paths:
-        if path.exists():
-            if path.suffix == ".xlsx":
-                return pd.read_excel(path)
-            if path.suffix == ".csv":
-                return pd.read_csv(path)
-            if path.suffix == ".parquet":
-                return pd.read_parquet(path)
+        df = read_table(path)
+        if not df.empty:
+            return df
 
     return pd.DataFrame()
 
 
 @st.cache_data
 def load_ensemble_registry() -> pd.DataFrame:
-    path = OUTPUTS_DIR / "ensemble" / "registry" / "model_summary.parquet"
-    return pd.read_parquet(path)
+    candidate_paths = [
+        OUTPUTS_DIR / "ensemble_registry.xlsx",
+        OUTPUTS_DIR / "ensemble_registry.csv",
+        OUTPUTS_DIR / "ensemble_registry.parquet",
+        OUTPUTS_DIR / "ensemble" / "registry" / "model_summary.csv",
+        OUTPUTS_DIR / "ensemble" / "registry" / "model_summary.xlsx",
+        OUTPUTS_DIR / "ensemble" / "registry" / "model_summary.parquet",
+    ]
 
-def extract_ensemble_weight_info(row):
-    """
-    Add ensemble interpretation for every ensemble model.
+    for path in candidate_paths:
+        df = read_table(path)
+        if not df.empty:
+            return df
 
-    Weighted ensembles get true weight-based diversity.
-    Equal/rank averages get equal-share diversity.
-    Stacking models are marked as meta-learners because base-model
-    dominance is not directly available unless meta coefficients/importances
-    are separately logged.
-    """
+    return pd.DataFrame()
 
-    if row.get("model_family") != "ensemble":
+
+def extract_ensemble_weight_info(row: pd.Series) -> pd.Series:
+    if str(row.get("model_family", "")).lower() != "ensemble":
         return pd.Series(
             {
                 "ensemble_method_type": None,
@@ -72,11 +82,7 @@ def extract_ensemble_weight_info(row):
     base_models = [x.strip() for x in features_text.split(",") if x.strip()]
     n_base = len(base_models)
 
-    params_text_clean = re.sub(
-        r"np\.float64\(([^)]+)\)",
-        r"\1",
-        params_text,
-    )
+    params_text_clean = re.sub(r"np\.float64\(([^)]+)\)", r"\1", params_text)
 
     try:
         params_dict = ast.literal_eval(params_text_clean)
@@ -107,7 +113,7 @@ def extract_ensemble_weight_info(row):
             }
         )
 
-    if "Equal average" in model_name:
+    if "equal average" in model_name.lower():
         max_weight = 1 / n_base if n_base else None
         return pd.Series(
             {
@@ -119,7 +125,7 @@ def extract_ensemble_weight_info(row):
             }
         )
 
-    if "Rank average" in model_name:
+    if "rank average" in model_name.lower():
         max_weight = 1 / n_base if n_base else None
         return pd.Series(
             {
@@ -152,12 +158,21 @@ def extract_ensemble_weight_info(row):
         }
     )
 
+
 @st.cache_data
 def load_full_model_registry() -> pd.DataFrame:
     base = load_base_registry()
     ensemble = load_ensemble_registry()
 
-    registry = pd.concat([base, ensemble], ignore_index=True)
+    frames = [df for df in [base, ensemble] if not df.empty]
+
+    if not frames:
+        return pd.DataFrame()
+
+    registry = pd.concat(frames, ignore_index=True)
+
+    if "model_id" in registry.columns:
+        registry = registry.drop_duplicates(subset=["model_id"], keep="last")
 
     numeric_cols = [
         "train_auc",
@@ -170,6 +185,8 @@ def load_full_model_registry() -> pd.DataFrame:
         "validation_precision",
         "validation_recall",
         "validation_f1",
+        "selection_score",
+        "feature_count",
     ]
 
     for col in numeric_cols:
@@ -186,6 +203,6 @@ def load_full_model_registry() -> pd.DataFrame:
         registry["auc_gap"] = registry["train_auc"] - registry["validation_auc"]
 
     ensemble_info = registry.apply(extract_ensemble_weight_info, axis=1)
-    registry = pd.concat([registry, ensemble_info], axis=1)
+    registry = pd.concat([registry.reset_index(drop=True), ensemble_info], axis=1)
 
-    return registry
+    return registry.reset_index(drop=True)
