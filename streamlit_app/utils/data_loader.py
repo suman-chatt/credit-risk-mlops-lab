@@ -4,16 +4,33 @@ import pandas as pd
 import streamlit as st
 import ast
 import re
-
+from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 OUTPUTS_DIR = PROJECT_ROOT / "outputs_src"
 
 
+
+
 @st.cache_data
 def load_base_registry() -> pd.DataFrame:
-    path = OUTPUTS_DIR / "registry" / "model_summary.parquet"
-    return pd.read_parquet(path)
+    project_root = Path.cwd()
+
+    candidate_paths = [
+        project_root / "outputs_src" / "registry" / "model_summary.csv",
+        project_root / "outputs_src" / "registry" / "model_summary.parquet",
+        project_root / "artifacts" / "registry" / "model_summary.csv",
+        project_root / "artifacts" / "registry" / "model_summary.parquet",
+    ]
+
+    for path in candidate_paths:
+        if path.exists():
+            if path.suffix == ".csv":
+                return pd.read_csv(path)
+            if path.suffix == ".parquet":
+                return pd.read_parquet(path)
+
+    return pd.DataFrame()
 
 
 @st.cache_data
