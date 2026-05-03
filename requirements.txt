@@ -1,0 +1,15 @@
+catboost
+joblib
+lightgbm
+matplotlib
+mlflow
+numpy
+openpyxl
+pandas<3
+plotly
+scikit-learn
+scipy
+statsmodels
+streamlit
+streamlit-aggrid
+xgboost
