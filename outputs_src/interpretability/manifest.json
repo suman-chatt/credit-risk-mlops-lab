@@ -1,0 +1,22 @@
+{
+  "output_root": "/Users/sumanchattopadhyay/Documents/Documents - Suman\u2019s MacBook Air/Projects/credit-risk-mlops-lab/outputs_src/interpretability",
+  "model_search_paths": [
+    "/Users/sumanchattopadhyay/Documents/Documents - Suman\u2019s MacBook Air/Projects/credit-risk-mlops-lab/outputs_src/models",
+    "/Users/sumanchattopadhyay/Documents/Documents - Suman\u2019s MacBook Air/Projects/credit-risk-mlops-lab/outputs_src/ensemble/models"
+  ],
+  "files": {
+    "summary": "/Users/sumanchattopadhyay/Documents/Documents - Suman\u2019s MacBook Air/Projects/credit-risk-mlops-lab/outputs_src/interpretability/summary/interpretability_model_summary.csv",
+    "logistic_coefficients": "/Users/sumanchattopadhyay/Documents/Documents - Suman\u2019s MacBook Air/Projects/credit-risk-mlops-lab/outputs_src/interpretability/logistic/logistic_coefficients_summary.csv",
+    "feature_importance": "/Users/sumanchattopadhyay/Documents/Documents - Suman\u2019s MacBook Air/Projects/credit-risk-mlops-lab/outputs_src/interpretability/feature_importance/feature_importance_summary.csv",
+    "ensemble_summary": "/Users/sumanchattopadhyay/Documents/Documents - Suman\u2019s MacBook Air/Projects/credit-risk-mlops-lab/outputs_src/interpretability/ensemble/ensemble_interpretability_summary.csv",
+    "ensemble_weights": "/Users/sumanchattopadhyay/Documents/Documents - Suman\u2019s MacBook Air/Projects/credit-risk-mlops-lab/outputs_src/interpretability/ensemble/ensemble_base_model_weights.csv",
+    "stacking_meta_importance": "/Users/sumanchattopadhyay/Documents/Documents - Suman\u2019s MacBook Air/Projects/credit-risk-mlops-lab/outputs_src/interpretability/ensemble/stacking_meta_model_importance.csv",
+    "shap_status": "/Users/sumanchattopadhyay/Documents/Documents - Suman\u2019s MacBook Air/Projects/credit-risk-mlops-lab/outputs_src/interpretability/shap/shap_export_status.csv",
+    "governance_checks": "/Users/sumanchattopadhyay/Documents/Documents - Suman\u2019s MacBook Air/Projects/credit-risk-mlops-lab/outputs_src/interpretability/governance/model_governance_checks.csv"
+  },
+  "reference_models": {
+    "modeler_default": "CAT002",
+    "best_validation_auc": "XGBSTACK001"
+  },
+  "note": "This export extracts real model interpretability artifacts where available. SHAP is intentionally tracked as status-only until model-specific validation matrices are wired into the export layer."
+}

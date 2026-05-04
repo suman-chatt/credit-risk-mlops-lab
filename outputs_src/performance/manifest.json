@@ -1,0 +1,12 @@
+{
+  "output_root": "/Users/sumanchattopadhyay/Documents/Documents - Suman\u2019s MacBook Air/Projects/credit-risk-mlops-lab/outputs_src/performance",
+  "files": {
+    "all_predictions": "/Users/sumanchattopadhyay/Documents/Documents - Suman\u2019s MacBook Air/Projects/credit-risk-mlops-lab/outputs_src/performance/model_predictions.csv",
+    "validation_predictions": "/Users/sumanchattopadhyay/Documents/Documents - Suman\u2019s MacBook Air/Projects/credit-risk-mlops-lab/outputs_src/performance/model_validation_predictions.csv",
+    "threshold_analysis": "/Users/sumanchattopadhyay/Documents/Documents - Suman\u2019s MacBook Air/Projects/credit-risk-mlops-lab/outputs_src/performance/threshold_analysis.csv",
+    "top_bucket_summary": "/Users/sumanchattopadhyay/Documents/Documents - Suman\u2019s MacBook Air/Projects/credit-risk-mlops-lab/outputs_src/performance/top_bucket_summary.csv",
+    "calibration_error_summary": "/Users/sumanchattopadhyay/Documents/Documents - Suman\u2019s MacBook Air/Projects/credit-risk-mlops-lab/outputs_src/performance/calibration_error_summary.csv",
+    "train_validation_metric_gaps": "/Users/sumanchattopadhyay/Documents/Documents - Suman\u2019s MacBook Air/Projects/credit-risk-mlops-lab/outputs_src/performance/train_validation_metric_gaps.csv"
+  },
+  "score_interpretation": "Higher y_pred means higher predicted probability of default. Threshold analysis treats y_pred below threshold as approved."
+}
