@@ -53,9 +53,6 @@ def main() -> None:
     print(f"Production champion: {production_model_id}")
     print(f"Practical explainable champion: {practical_model_id}")
 
-    # -----------------------------
-    # Feature importance
-    # -----------------------------
 
     feature_importance_path = DIAGNOSTICS_DIR / "feature_importance_tables.parquet"
 
@@ -88,10 +85,6 @@ def main() -> None:
             index=False,
         )
 
-    # -----------------------------
-    # Applicant-level score proxy explanations
-    # -----------------------------
-
     score_cols = [
         col
         for col in scored_df.columns
@@ -108,10 +101,6 @@ def main() -> None:
         EXPLAINABILITY_DIR / "applicant_reason_score_proxy.csv",
         index=False,
     )
-
-    # -----------------------------
-    # SHAP for practical champion
-    # -----------------------------
 
     practical_model = joblib.load(artifact_paths[practical_model_id])
 
@@ -160,9 +149,6 @@ def main() -> None:
     except Exception as exc:
         print(f"SHAP skipped: {exc}")
 
-    # -----------------------------
-    # Fairness / proxy diagnostics
-    # -----------------------------
 
     fairness_df = scored_df[["row_id", "production_pd"]].copy()
 

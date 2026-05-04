@@ -26,10 +26,6 @@ ENSEMBLE_DIAG_DIR = OUTPUTS_DIR / "ensemble" / "diagnostics"
 PERF_DIR.mkdir(parents=True, exist_ok=True)
 
 
-# --------------------------------------------------
-# Load inputs
-# --------------------------------------------------
-
 def load_inputs() -> tuple[dict, pd.DataFrame, dict, pd.DataFrame, dict]:
     df_tree = pd.read_csv(MODEL_READY_DIR / "df_tree_model_ready_src.csv")
     df_scaled = pd.read_csv(MODEL_READY_DIR / "df_scaled_model_ready_src.csv")
@@ -75,11 +71,6 @@ def load_inputs() -> tuple[dict, pd.DataFrame, dict, pd.DataFrame, dict]:
         ensemble_summary,
         ensemble_artifact_paths,
     )
-
-
-# --------------------------------------------------
-# Helpers
-# --------------------------------------------------
 
 def parse_features(feature_string: Any) -> list[str]:
     if pd.isna(feature_string):
@@ -201,10 +192,6 @@ def predict_base_model(
         return None, None
 
 
-# --------------------------------------------------
-# Base prediction cache
-# --------------------------------------------------
-
 def build_base_prediction_cache(
     datasets: dict,
     base_summary: pd.DataFrame,
@@ -232,11 +219,6 @@ def build_base_prediction_cache(
                 cache[(model_id, split_name)] = (preds, y)
 
     return cache
-
-
-# --------------------------------------------------
-# Ensemble prediction
-# --------------------------------------------------
 
 def build_ensemble_matrix(
     ensemble_row: pd.Series,
@@ -320,11 +302,6 @@ def predict_ensemble_model(
         print(f"[Ensemble prediction skipped] {row.get('model_id')} / {split_name}: {exc}")
         return None, None
 
-
-# --------------------------------------------------
-# Build prediction table
-# --------------------------------------------------
-
 def build_prediction_table(
     base_prediction_cache: dict,
     ensemble_summary: pd.DataFrame,
@@ -387,11 +364,6 @@ def build_prediction_table(
 
     return out
 
-
-# --------------------------------------------------
-# Threshold analysis
-# --------------------------------------------------
-
 def build_threshold_analysis(predictions: pd.DataFrame) -> None:
     thresholds = np.round(np.linspace(0.01, 0.99, 99), 4)
     records = []
@@ -424,10 +396,6 @@ def build_threshold_analysis(predictions: pd.DataFrame) -> None:
     pd.DataFrame(records).to_csv(PERF_DIR / "threshold_analysis.csv", index=False)
 
 
-# --------------------------------------------------
-# Top bucket summary
-# --------------------------------------------------
-
 def build_top_bucket_summary(predictions: pd.DataFrame) -> None:
     records = []
 
@@ -454,10 +422,6 @@ def build_top_bucket_summary(predictions: pd.DataFrame) -> None:
 
     pd.DataFrame(records).to_csv(PERF_DIR / "top_bucket_summary.csv", index=False)
 
-
-# --------------------------------------------------
-# Calibration error summary
-# --------------------------------------------------
 
 def build_calibration_error_summary() -> None:
     frames = []
@@ -487,10 +451,6 @@ def build_calibration_error_summary() -> None:
 
     out.to_csv(PERF_DIR / "calibration_error_summary.csv", index=False)
 
-
-# --------------------------------------------------
-# Train-validation metric gaps
-# --------------------------------------------------
 
 def build_metric_gaps(base_summary: pd.DataFrame, ensemble_summary: pd.DataFrame) -> None:
     frames = [base_summary.copy()]
@@ -526,10 +486,6 @@ def build_metric_gaps(base_summary: pd.DataFrame, ensemble_summary: pd.DataFrame
     data[keep_cols].to_csv(PERF_DIR / "train_validation_metric_gaps.csv", index=False)
 
 
-# --------------------------------------------------
-# Manifest
-# --------------------------------------------------
-
 def write_manifest() -> None:
     manifest = {
         "output_root": str(PERF_DIR),
@@ -547,10 +503,6 @@ def write_manifest() -> None:
     with open(PERF_DIR / "manifest.json", "w", encoding="utf-8") as f:
         json.dump(manifest, f, indent=2)
 
-
-# --------------------------------------------------
-# Main
-# --------------------------------------------------
 
 def main() -> None:
     (

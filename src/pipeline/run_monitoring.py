@@ -84,8 +84,6 @@ def main() -> None:
         index=False,
     )
 
-    # Stability outputs are optional because this Kaggle dataset has no real time column.
-    # For now, create an artificial row-order cohort only for pipeline demonstration.
     scored_with_target = scored.copy()
     scored_with_target[target_col] = reference_tree[target_col].values
 
