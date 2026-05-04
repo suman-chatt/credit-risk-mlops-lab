@@ -18,9 +18,9 @@ st.caption(
 )
 
 
-# --------------------------------------------------
+
 # Paths
-# --------------------------------------------------
+
 
 PROJECT_ROOT = Path.cwd()
 OUTPUTS_DIR = PROJECT_ROOT / "outputs_src"
@@ -44,9 +44,9 @@ MODELERS_DEFAULT_MODEL_ID = "CAT002"
 BEST_AUC_MODEL_ID = "XGBSTACK001"
 
 
-# --------------------------------------------------
+
 # Loaders
-# --------------------------------------------------
+
 
 @st.cache_data
 def load_registry() -> pd.DataFrame:
@@ -111,9 +111,9 @@ calibration_error_df = load_performance_file(CALIBRATION_ERROR_PATH)
 metric_gaps_df = load_performance_file(METRIC_GAPS_PATH)
 
 
-# --------------------------------------------------
+
 # Helpers
-# --------------------------------------------------
+
 
 def build_table(data: pd.DataFrame, height: int = 350, key: str | None = None):
     if data.empty:
@@ -232,9 +232,9 @@ def validation_only(data: pd.DataFrame, model_ids: list[str]) -> pd.DataFrame:
     return out
 
 
-# --------------------------------------------------
+
 # Intro
-# --------------------------------------------------
+
 
 st.markdown(
     """
@@ -258,9 +258,9 @@ You can add up to **five challenger models** for comparison.
 )
 
 
-# --------------------------------------------------
+
 # Sidebar selectors
-# --------------------------------------------------
+
 
 st.sidebar.header("Performance Controls")
 
@@ -319,9 +319,9 @@ comparison_df["sort_order"] = comparison_df["model_id"].map(order_map)
 comparison_df = comparison_df.sort_values("sort_order")
 
 
-# --------------------------------------------------
+
 # Navigation
-# --------------------------------------------------
+
 
 section = st.radio(
     "Jump to section",
@@ -345,9 +345,9 @@ section = st.radio(
 )
 
 
-# --------------------------------------------------
+
 # Metric Overview
-# --------------------------------------------------
+
 
 if section == "Metric Overview":
     st.subheader("Metric Overview")
@@ -381,9 +381,9 @@ This table summarizes validation performance for the fixed reference models and 
     )
 
 
-# --------------------------------------------------
+
 # Validation Metric Charts
-# --------------------------------------------------
+
 
 elif section == "Validation Metric Charts":
     st.subheader("Validation Metric Charts")
@@ -436,9 +436,9 @@ A model should not be selected from one metric alone. The goal is to find a mode
 
         st.plotly_chart(fig, use_container_width=True)
 
-# --------------------------------------------------
+
 # Train vs Validation Gaps
-# --------------------------------------------------
+
 
 elif section == "Train vs Validation Gaps":
     st.subheader("Train vs Validation Gaps")
@@ -491,9 +491,9 @@ This is not a time-drift test. It is a train-validation generalization check.
 
             st.plotly_chart(fig, use_container_width=True)
 
-# --------------------------------------------------
+
 # Gains Chart
-# --------------------------------------------------
+
 
 elif section == "Gains Chart":
     st.subheader("Gains Chart")
@@ -563,9 +563,9 @@ elif section == "Gains Chart":
         )
 
 
-# --------------------------------------------------
+
 # Lift Chart
-# --------------------------------------------------
+
 
 elif section == "Lift Chart":
     st.subheader("Lift Chart")
@@ -628,9 +628,9 @@ elif section == "Lift Chart":
         build_table(safe_round_cols(top_bucket), height=220)
 
 
-# --------------------------------------------------
+
 # Top-of-Book Summary 
-# --------------------------------------------------
+
 
 elif section == "Top-of-Book Summary":
     st.subheader("Top-of-Book Summary")
@@ -686,9 +686,9 @@ This is a practical version of the lift/gains view. It answers:
         st.plotly_chart(fig, use_container_width=True)
 
 
-# --------------------------------------------------
+
 # KS Curve
-# --------------------------------------------------
+
 
 elif section == "KS Curve":
     st.subheader("KS Curve")
@@ -738,9 +738,9 @@ elif section == "KS Curve":
         build_table(safe_round_cols(ks_summary), height=240)
 
 
-# --------------------------------------------------
+
 # Calibration Curve
-# --------------------------------------------------
+
 
 elif section == "Calibration Curve":
     st.subheader("Calibration Curve")
@@ -819,9 +819,9 @@ elif section == "Calibration Curve":
             height=330,
         )
 
-# --------------------------------------------------
+
 # Calibration Error
-# --------------------------------------------------
+
 
 elif section == "Calibration Error":
     st.subheader("Calibration Error")
@@ -866,9 +866,9 @@ This gives a compact way to compare calibration quality across models without re
 
         st.plotly_chart(fig, use_container_width=True)
 
-# --------------------------------------------------
+
 # Threshold Analysis
-# --------------------------------------------------
+
 
 elif section == "Threshold Analysis":
     st.subheader("Threshold Analysis")
@@ -1003,9 +1003,9 @@ This does not set the final business cutoff. It shows the tradeoff between growt
         )
 
 
-# --------------------------------------------------
+
 # Predicted vs Actual (Decile Analysis)
-# --------------------------------------------------
+
 
 elif section == "Predicted vs Actual (Deciles)":
     st.subheader("Predicted vs Actual (Decile Analysis)")
@@ -1095,9 +1095,9 @@ Large gaps indicate calibration or probability issues.
 
         build_table(safe_round_cols(decile_df), height=350)
 
-# --------------------------------------------------
+
 # Error by PD band
-# --------------------------------------------------
+
 
 elif section == "Error by PD Band":
     st.subheader("Error by PD Band")
@@ -1171,9 +1171,9 @@ Typical patterns:
 
         build_table(safe_round_cols(error_df), height=350)
 
-# --------------------------------------------------
+
 # Ranking Consistency
-# --------------------------------------------------
+
 
 elif section == "Ranking Consistency":
     st.subheader("Ranking Consistency")

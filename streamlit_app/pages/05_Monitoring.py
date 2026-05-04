@@ -14,9 +14,9 @@ st.caption(
 )
 
 
-# --------------------------------------------------
+
 # Paths
-# --------------------------------------------------
+
 
 PROJECT_ROOT = Path.cwd()
 OUTPUTS_DIR = PROJECT_ROOT / "outputs_src"
@@ -39,9 +39,9 @@ MODELERS_DEFAULT_MODEL_ID = "CAT002"
 BEST_AUC_MODEL_ID = "XGBSTACK001"
 
 
-# --------------------------------------------------
+
 # Loaders
-# --------------------------------------------------
+
 
 @st.cache_data
 def load_csv(path: Path) -> pd.DataFrame:
@@ -89,9 +89,9 @@ Run:
     st.stop()
 
 
-# --------------------------------------------------
+
 # Helpers
-# --------------------------------------------------
+
 
 def build_table(data: pd.DataFrame, height: int = 350):
     if data.empty:
@@ -298,9 +298,9 @@ def build_governance_action_table(
     return pd.DataFrame(records)
 
 
-# --------------------------------------------------
+
 # Sidebar
-# --------------------------------------------------
+
 
 st.sidebar.header("Monitoring Controls")
 
@@ -348,9 +348,9 @@ for i in range(1, 6):
 
 comparison_models = get_comparison_models(selected_challengers)
 
-# --------------------------------------------------
+
 # Shared app-ready monitoring data
-# --------------------------------------------------
+
 
 monitoring_threshold = st.sidebar.slider(
     "Monitoring PD threshold",
@@ -370,9 +370,9 @@ governance_action_df = build_governance_action_table(
     stress_df=stress_df,
     feature_drift_df=feature_drift_df,
 )
-# --------------------------------------------------
+
 # Navigation
-# --------------------------------------------------
+
 
 section = st.radio(
     "Monitoring Sections",
@@ -393,9 +393,9 @@ section = st.radio(
 )
 
 
-# --------------------------------------------------
+
 # Overview
-# --------------------------------------------------
+
 
 if section == "Overview":
     st.subheader("Monitoring Overview")
@@ -461,9 +461,9 @@ This is a **production-monitoring proxy**, not a substitute for real post-deploy
     build_table(safe_round_cols(stress_cohort_summary), height=240)
 
 
-# --------------------------------------------------
+
 # Monitoring Health
-# --------------------------------------------------
+
 
 elif section == "Monitoring Health":
     st.subheader("Monitoring Health Summary")
@@ -534,9 +534,9 @@ That is not a model failure. It means:
         )
 
 
-# --------------------------------------------------
+
 # Score Stability
-# --------------------------------------------------
+
 
 elif section == "Score Stability":
     st.subheader("Score Stability Under Synthetic Population Drift")
@@ -593,9 +593,9 @@ The goal is stable and explainable score movement.
         build_table(safe_round_cols(stress_df[display_cols]), height=360)
 
 
-# --------------------------------------------------
+
 # Performance Stability
-# --------------------------------------------------
+
 
 elif section == "Performance Stability":
     st.subheader("Performance Stability Under Synthetic Cohorts")
@@ -669,9 +669,9 @@ we are not changing labels, but we are changing the population mix.
         )
 
 
-# --------------------------------------------------
+
 # Decision Stability
-# --------------------------------------------------
+
 
 elif section == "Decision Stability":
     st.subheader("Decision Stability")
@@ -733,9 +733,9 @@ score drift matters because it changes decisions.
 """
         )
 
-# --------------------------------------------------
+
 # Stress Testing Summary
-# --------------------------------------------------
+
 
 elif section == "Stress Testing Summary":
     st.subheader("Stress Testing Summary")
@@ -813,9 +813,9 @@ This chart shows how much each model's approval rate changes from the mildest to
         )
 
 
-# --------------------------------------------------
+
 # Decision Sensitivity
-# --------------------------------------------------
+
 
 elif section == "Decision Sensitivity":
     st.subheader("Decision Sensitivity")
@@ -878,9 +878,9 @@ This section helps governance teams understand whether a proposed cutoff is stab
 """
         )
 
-# --------------------------------------------------
+
 # Feature Drift
-# --------------------------------------------------
+
 
 elif section == "Feature Drift":
     st.subheader("Feature Drift Summary")
@@ -969,9 +969,9 @@ It means the model is operating on a population that may differ from the one it 
         )
 
 
-# --------------------------------------------------
+
 # Governance Actions
-# --------------------------------------------------
+
 
 elif section == "Governance Actions":
     st.subheader("Governance Actions")
@@ -1029,9 +1029,9 @@ This is the bridge between monitoring analytics and model risk management.
         )
 
 
-# --------------------------------------------------
+
 # Monitoring Recommendations
-# --------------------------------------------------
+
 
 elif section == "Monitoring Recommendations":
     st.subheader("Monitoring Recommendations")

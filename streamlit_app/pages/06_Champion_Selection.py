@@ -13,9 +13,9 @@ st.caption(
 )
 
 
-# --------------------------------------------------
+
 # Paths
-# --------------------------------------------------
+
 
 PROJECT_ROOT = Path.cwd()
 OUTPUTS_DIR = PROJECT_ROOT / "outputs_src"
@@ -36,9 +36,9 @@ MODELERS_DEFAULT_MODEL_ID = "CAT002"
 BEST_AUC_MODEL_ID = "XGBSTACK001"
 
 
-# --------------------------------------------------
+
 # Loaders
-# --------------------------------------------------
+
 
 @st.cache_data
 def load_csv(path: Path) -> pd.DataFrame:
@@ -77,9 +77,9 @@ if registry_df.empty:
     st.stop()
 
 
-# --------------------------------------------------
+
 # Helpers
-# --------------------------------------------------
+
 
 def build_table(data: pd.DataFrame, height: int = 350):
     if data.empty:
@@ -439,9 +439,9 @@ def render_candidate_expander(model_id: str, role: str, expanded: bool = False):
         st.markdown(conclusion)
 
 
-# --------------------------------------------------
+
 # Sidebar: user-selected model
-# --------------------------------------------------
+
 
 st.sidebar.header("Champion Review Controls")
 
@@ -468,9 +468,9 @@ selected_label = st.sidebar.selectbox(
 USER_SELECTED_MODEL_ID = selected_label.split(" | ")[0]
 
 
-# --------------------------------------------------
+
 # Navigation
-# --------------------------------------------------
+
 
 section = st.radio(
     "Champion Selection Sections",
@@ -484,9 +484,9 @@ section = st.radio(
 )
 
 
-# --------------------------------------------------
+
 # Overview
-# --------------------------------------------------
+
 
 if section == "Overview":
     st.subheader("Champion Selection Overview")
@@ -521,9 +521,9 @@ It should also be explainable, stable, usable for decisioning, and defensible in
     build_table(safe_round_cols(overview_df), height=420)
 
 
-# --------------------------------------------------
+
 # Candidate Comparison
-# --------------------------------------------------
+
 
 elif section == "Candidate Comparison":
     st.subheader("Candidate Comparison")
@@ -588,9 +588,9 @@ This avoids reviewing one-row tables separately and keeps the tradeoff discussio
         )
 
 
-# --------------------------------------------------
+
 # Final Recommendation
-# --------------------------------------------------
+
 
 elif section == "Final Recommendation":
     st.subheader("Final Recommendation")

@@ -16,10 +16,7 @@ st.caption(
     "Review whether candidate models are explainable, directionally sensible, and suitable for model governance."
 )
 
-
-# --------------------------------------------------
 # Paths
-# --------------------------------------------------
 
 PROJECT_ROOT = Path.cwd()
 INTERP_DIR = PROJECT_ROOT / "outputs_src" / "interpretability"
@@ -35,10 +32,7 @@ SHAP_STATUS_PATH = INTERP_DIR / "shap" / "shap_export_status.csv"
 MODELERS_DEFAULT_MODEL_ID = "CAT002"
 BEST_AUC_MODEL_ID = "XGBSTACK001"
 
-
-# --------------------------------------------------
 # Load data
-# --------------------------------------------------
 
 @st.cache_data
 def load_csv(path: Path) -> pd.DataFrame:
@@ -67,10 +61,7 @@ Run:
     )
     st.stop()
 
-
-# --------------------------------------------------
 # Helpers
-# --------------------------------------------------
 
 def build_table(data: pd.DataFrame, height: int = 350):
     if data.empty:
@@ -348,9 +339,7 @@ def model_description(model_id: str, model_family: str, model_name: str = "") ->
         return "Ensemble model: combines multiple base model predictions."
     return model_name or "Model description unavailable."
 
-# --------------------------------------------------
 # Intro
-# --------------------------------------------------
 
 st.markdown(
     """
@@ -424,9 +413,7 @@ That is why this page separates coefficients, feature importance, and ensemble c
 """
     )
 
-# --------------------------------------------------
 # Sidebar
-# --------------------------------------------------
 
 st.sidebar.header("Interpretability Controls")
 
@@ -465,9 +452,7 @@ for i in range(1, 6):
 
 comparison_model_ids = get_reference_models(selected_model_ids)
 
-# --------------------------------------------
-# Build comparison summary (FIX)
-# --------------------------------------------
+# Build comparison summary 
 
 comparison_summary = summary_df[
     summary_df["model_id"].isin(comparison_model_ids)
@@ -491,10 +476,7 @@ comparison_summary["model_description"] = comparison_summary.apply(
     axis=1,
 )
 
-
-# --------------------------------------------------
 # Navigation
-# --------------------------------------------------
 
 section = st.radio(
     "Jump to section",
@@ -510,10 +492,7 @@ section = st.radio(
     label_visibility="collapsed",
 )
 
-
-# --------------------------------------------------
 # Comparison Overview
-# --------------------------------------------------
 
 if section == "Comparison Overview":
     st.subheader("Comparison Overview")
@@ -577,10 +556,7 @@ if section == "Comparison Overview":
 
     st.plotly_chart(fig, width="stretch")
 
-
-# --------------------------------------------------
 # Logistic Coefficients
-# --------------------------------------------------
 
 elif section == "Logistic Coefficients":
     st.subheader("Logistic Coefficients, P-values, Odds Ratios, and Direction Checks")
@@ -686,10 +662,7 @@ For statsmodels logistic models, p-values and significance stars are available. 
                 f"{review_count} coefficient direction item(s) require review before champion approval."
             )
 
-
-# --------------------------------------------------
 # Feature Importance
-# --------------------------------------------------
 
 elif section == "Feature Importance":
     st.subheader("Feature Importance Review")
@@ -773,9 +746,7 @@ Each model is shown separately to avoid mixing interpretation types.
                 else:
                     st.success(f"Acceptable concentration: top 3 features = {top3:.2f}")
 
-# --------------------------------------------------
 # Ensemble Contributions
-# --------------------------------------------------
 
 elif section == "Ensemble Contributions":
     st.subheader("Ensemble Contributions and Stacking Meta-Model Review")
@@ -863,9 +834,7 @@ For stacking models, this section shows meta-model coefficients or feature impor
             not differences in underlying signals.
             """
             )
-# --------------------------------------------------
 # Governance Checks
-# --------------------------------------------------
 
 elif section == "Governance Checks":
     st.subheader("Governance Checks")
@@ -905,10 +874,7 @@ This section flags practical model-risk concerns that should be reviewed before 
             height=390,
         )
 
-
-# --------------------------------------------------
 # Interpretability Decision
-# --------------------------------------------------
 
 elif section == "Interpretability Decision":
     st.subheader("Interpretability Decision")

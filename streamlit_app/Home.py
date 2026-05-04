@@ -15,9 +15,9 @@ st.caption("Recruiter-ready overview of the credit risk modeling and model-risk 
 st.info("Use the left sidebar to navigate through the full Streamlit application.")
 
 
-# --------------------------------------------------
+
 # Load data
-# --------------------------------------------------
+
 
 df = load_full_model_registry()
 
@@ -26,9 +26,9 @@ if df.empty:
     st.stop()
 
 
-# --------------------------------------------------
+
 # Sidebar TOC
-# --------------------------------------------------
+
 
 st.sidebar.title("Navigation")
 
@@ -52,9 +52,9 @@ st.sidebar.markdown(
 )
 
 
-# --------------------------------------------------
+
 # 1. Executive Summary
-# --------------------------------------------------
+
 
 st.markdown("## 1. Executive Summary")
 
@@ -85,9 +85,9 @@ The second question drives the final outcome.
 """
 )
 
-# --------------------------------------------------
+
 # 2. Business Question
-# --------------------------------------------------
+
 
 st.markdown("## 2. Business Question")
 
@@ -111,9 +111,9 @@ It provides a consistent, data-driven risk signal that can support human and pol
 )
 
 
-# --------------------------------------------------
+
 # 3. Economic Importance
-# --------------------------------------------------
+
 
 st.markdown("## 3. Economic Importance")
 
@@ -139,9 +139,9 @@ A strong model improves this tradeoff.
 )
 
 
-# --------------------------------------------------
+
 # 4. Data Overview
-# --------------------------------------------------
+
 
 st.markdown("## 4. Data Overview")
 
@@ -169,9 +169,9 @@ In business language:
 )
 
 
-# --------------------------------------------------
+
 # 5. Modeling Workflow
-# --------------------------------------------------
+
 
 st.markdown("## 5. Modeling Workflow")
 
@@ -218,9 +218,9 @@ The final model decision is based on both statistical performance and practical 
 )
 
 
-# --------------------------------------------------
+
 # 6. Model Families
-# --------------------------------------------------
+
 
 st.markdown("## 6. Model Families Trained")
 
@@ -248,9 +248,9 @@ The app consistently compares:
 )
 
 
-# --------------------------------------------------
+
 # 7. Key Results
-# --------------------------------------------------
+
 
 st.markdown("## 7. Key Results")
 
@@ -280,9 +280,9 @@ This is what separates a strong model from a usable one.
 )
 
 
-# --------------------------------------------------
+
 # 8. Performance Chart
-# --------------------------------------------------
+
 
 st.markdown("## 8. Model Performance Snapshot")
 
@@ -314,9 +314,9 @@ fig.update_layout(height=520)
 st.plotly_chart(fig, width="stretch")
 
 
-# --------------------------------------------------
+
 # 9. Evaluation Framework
-# --------------------------------------------------
+
 
 st.markdown("## 9. Evaluation Framework")
 
@@ -340,9 +340,9 @@ This makes the analysis more realistic than simply sorting models by AUC.
 )
 
 
-# --------------------------------------------------
+
 # 10. Interpretability
-# --------------------------------------------------
+
 
 st.markdown("## 10. Interpretability Review")
 
@@ -370,9 +370,9 @@ In a production model approval process, local explainability such as SHAP would 
 )
 
 
-# --------------------------------------------------
+
 # 11. Scoring and Risk Bands
-# --------------------------------------------------
+
 
 st.markdown("## 11. Scoring and Risk Bands")
 
@@ -401,9 +401,9 @@ The scoring section answers:
 )
 
 
-# --------------------------------------------------
+
 # 12. Monitoring
-# --------------------------------------------------
+
 
 st.markdown("## 12. Monitoring and Stability")
 
@@ -435,9 +435,9 @@ It is a **monitoring framework**, not just a metric report.
 )
 
 
-# --------------------------------------------------
+
 # 13. Champion Selection
-# --------------------------------------------------
+
 
 st.markdown("## 13. Champion Selection")
 
@@ -480,9 +480,9 @@ This reflects real-world model governance:
 """
 )
 
-# --------------------------------------------------
+
 # 14. Limitations
-# --------------------------------------------------
+
 
 st.markdown("## 14. Limitations")
 
@@ -514,9 +514,9 @@ These limitations are not hidden. They are documented because realistic model-ri
 )
 
 
-# --------------------------------------------------
+
 # 15. Deployment Context
-# --------------------------------------------------
+
 
 st.markdown("## 15. Deployment Context")
 
@@ -540,9 +540,9 @@ The model is one component of a controlled decision process.
 )
 
 
-# --------------------------------------------------
+
 # 16. What This Project Demonstrates
-# --------------------------------------------------
+
 
 st.markdown("## 16. What This Project Demonstrates")
 

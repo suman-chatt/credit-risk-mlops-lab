@@ -1,6 +1,6 @@
-# -----------------------------
+
 # Python
-# -----------------------------
+
 __pycache__/
 *.pyc
 *.pyo
@@ -13,9 +13,9 @@ __pycache__/
 env/
 venv/
 
-# -----------------------------
+
 # Data
-# -----------------------------
+
 data/df_*.csv
 data/df_*.parquet
 data/final_*.csv
@@ -26,9 +26,9 @@ data/final_*.xlsx
 !data/Data Dictionary.xls
 !data/sampleEntry.csv
 
-# -----------------------------
+
 # Block generated outputs
-# -----------------------------
+
 outputs/
 outputs_src/*
 
@@ -100,20 +100,19 @@ outputs_src/diagnostics/roc_curves.csv
 !outputs_src/performance/
 !outputs_src/performance/threshold_analysis.csv
 
-# -----------------------------
+
 # ML artifacts
-# -----------------------------
+
 mlruns/
 mlruns_local/
 catboost_info/
 
-# -----------------------------
+
 # IDE
-# -----------------------------
+
 .vscode/
 .idea/
 
-# -----------------------------
 # Logs
-# -----------------------------
+
 *.log

@@ -13,9 +13,9 @@ st.set_page_config(
 
 st.title("Scoring & Risk Bands")
 
-# --------------------------------------------------
+
 # Paths
-# --------------------------------------------------
+
 
 PROJECT_ROOT = Path.cwd()
 OUTPUTS_DIR = PROJECT_ROOT / "outputs_src"
@@ -40,9 +40,9 @@ MODELERS_DEFAULT_MODEL_ID = "CAT002"
 BEST_AUC_MODEL_ID = "XGBSTACK001"
 
 
-# --------------------------------------------------
+
 # Loaders
-# --------------------------------------------------
+
 
 @st.cache_data
 def load_csv(path: Path) -> pd.DataFrame:
@@ -95,9 +95,9 @@ Run:
     st.stop()
 
 
-# --------------------------------------------------
+
 # Helpers
-# --------------------------------------------------
+
 
 def build_table(data: pd.DataFrame, height: int = 350):
     if data.empty:
@@ -208,9 +208,9 @@ Re-run:
     )
     st.stop()
 
-# --------------------------------------------------
+
 # Intro
-# --------------------------------------------------
+
 
 st.caption(
     "Review validation-based scoring outputs, score distributions, risk bands, and model score agreement."
@@ -242,9 +242,9 @@ st.info(
     )
 
 
-# --------------------------------------------------
+
 # Sidebar
-# --------------------------------------------------
+
 
 st.sidebar.header("Scoring Controls")
 
@@ -293,9 +293,9 @@ for i in range(1, 6):
 comparison_model_ids = get_comparison_model_ids(selected_challengers)
 
 
-# --------------------------------------------------
+
 # Build comparison frames
-# --------------------------------------------------
+
 
 score_long = score_distribution_sample_df[
     score_distribution_sample_df["model_id"].astype(str).isin(comparison_model_ids)
@@ -310,9 +310,9 @@ summary = score_summary_df[
 if not summary.empty:
     summary["reference_role"] = summary["model_id"].apply(add_reference_role)
 
-# --------------------------------------------------
+
 # Navigation
-# --------------------------------------------------
+
 
 section = st.radio(
     "Jump to section",
@@ -332,9 +332,9 @@ section = st.radio(
     label_visibility="collapsed",
 )
 
-# --------------------------------------------------
+
 # Score Overview
-# --------------------------------------------------
+
 
 if section == "Score Overview":
     st.subheader("Score Overview")
@@ -394,9 +394,9 @@ The main question is whether the scoring output behaves sensibly and is usable f
     )
 
 
-# --------------------------------------------------
+
 # Score Distribution
-# --------------------------------------------------
+
 
 elif section == "Score Distribution":
     st.subheader("Score Distribution")
@@ -452,9 +452,9 @@ Very compressed distributions may limit usefulness for segmentation, pricing, or
     )
 
 
-# --------------------------------------------------
+
 # Score Summary
-# --------------------------------------------------
+
 
 elif section == "Score Summary":
     st.subheader("Score Summary")
@@ -535,9 +535,9 @@ This helps identify models that are too compressed, too extreme, or materially d
         """
         )
 
-# --------------------------------------------------
+
 # Risk Band Summary
-# --------------------------------------------------
+
 
 elif section == "Risk Band Summary":
     st.subheader("Risk Band Summary")
@@ -626,9 +626,9 @@ How to read it:
         """
         )
 
-# --------------------------------------------------
+
 # Actual Default Rate by Band
-# --------------------------------------------------
+
 
 elif section == "Actual Default Rate by Band":
     st.subheader("Actual Default Rate by Risk Band")
@@ -692,9 +692,9 @@ elif section == "Actual Default Rate by Band":
             height=360,
         )
 
-# --------------------------------------------------
+
 # Model Agreement
-# --------------------------------------------------
+
 
 elif section == "Model Agreement":
     st.subheader("Model Agreement")
@@ -742,9 +742,9 @@ This is useful for champion/challenger review because a complex model may not ad
         build_table(safe_round_cols(corr_subset), height=330)
 
 
-# --------------------------------------------------
+
 # Risk Band Transitions
-# --------------------------------------------------
+
 
 elif section == "Risk Band Transitions":
     st.subheader("Risk Band Transitions")
@@ -825,9 +825,9 @@ Large off-diagonal values indicate that two models may create materially differe
         build_table(safe_round_cols(view), height=360)
 
 
-# --------------------------------------------------
+
 # Top-K Risk Overlap
-# --------------------------------------------------
+
 
 elif section == "Top-K Risk Overlap":
     st.subheader("Top-K Risk Overlap")
@@ -922,9 +922,9 @@ This is one of the most practical ways to compare models beyond AUC.
 """
         )
 
-# --------------------------------------------------
+
 # Top Risk Capture
-# --------------------------------------------------
+
 
 elif section == "Top Risk Capture":
     st.subheader("Top Risk Capture")
@@ -1047,9 +1047,9 @@ Even small differences matter at scale — a 1–2% improvement can translate in
         )
     
 
-# --------------------------------------------------
+
 # Score Disagreement
-# --------------------------------------------------
+
 
 elif section == "Score Disagreement":
     st.subheader("Threshold-Based Score Disagreement")

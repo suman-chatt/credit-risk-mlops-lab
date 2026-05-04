@@ -5,10 +5,7 @@ import plotly.express as px
 from st_aggrid import AgGrid, GridOptionsBuilder
 from utils.data_loader import load_full_model_registry
 
-
-# ---------------------------------------
-# PAGE CONFIG
-# ---------------------------------------
+# Page COnfig
 
 st.set_page_config(
     page_title="Model Leaderboard",
@@ -47,9 +44,7 @@ easier to govern, and better aligned with production constraints.
 """
 )
 
-# ---------------------------------------
-# HELPER FUNCTIONS
-# ---------------------------------------
+# Helper functions for model comparison and visualization
 
 def add_auc_gap(data: pd.DataFrame) -> pd.DataFrame:
     data = data.copy()
@@ -201,17 +196,13 @@ def build_aggrid_table(data: pd.DataFrame, height: int = 430):
     )
 
 
-# ---------------------------------------
-# PREP DATA
-# ---------------------------------------
+# prepare data for display
 
 df = add_auc_gap(df)
 df = add_selection_score(df)
 df = add_champion_candidate_flag(df)
 
-# ---------------------------------------
-# SIDEBAR FILTERS
-# ---------------------------------------
+# Sidebar
 
 st.sidebar.header("Filters")
 
@@ -256,9 +247,7 @@ leaderboard = (
     .reset_index(drop=True)
 )
 
-# ---------------------------------------
-# SECTION NAVIGATION
-# ---------------------------------------
+# Navigation
 
 st.markdown("## Page Sections")
 
@@ -275,9 +264,7 @@ section = st.radio(
     label_visibility="collapsed",
 )
 
-# ---------------------------------------
-# KPI CARDS
-# ---------------------------------------
+# KPIs and best model highlight
 
 st.subheader("Highest Validation AUC Candidate")
 
@@ -300,9 +287,7 @@ col3.metric("Validation KS", f"{best_row['validation_ks']:.4f}")
 col4.metric("Log Loss", f"{best_row['validation_log_loss']:.4f}")
 col5.metric("AUC Gap", f"{best_row.get('auc_gap', np.nan):.4f}")
 
-# ---------------------------------------
-# LEADERBOARD TABLE
-# ---------------------------------------
+# Leaderboard Table
 
 if section == "Leaderboard Table":
     st.subheader("Leaderboard Table")
@@ -342,9 +327,7 @@ if section == "Leaderboard Table":
 
     build_aggrid_table(leaderboard_display, height=450)
 
-# ---------------------------------------
-# CHARTS / VISUALIZATIONS
-# ---------------------------------------
+# Charts and visualizations
 
 elif section == "Charts / Visualizations":
     st.subheader("Charts / Visualizations")
@@ -360,9 +343,7 @@ elif section == "Charts / Visualizations":
 
     chart_df = leaderboard.copy()
 
-    # -----------------------------
     # Stability vs Performance
-    # -----------------------------
 
     st.markdown("### 1. Stability vs Performance")
 
@@ -400,10 +381,7 @@ elif section == "Charts / Visualizations":
     else:
         st.info("This chart requires validation_auc, train_auc, and auc_gap.")
 
-
-    # -----------------------------
     # Calibration vs Ranking
-    # -----------------------------
 
     st.markdown("### 2. Calibration vs Ranking")
 
@@ -442,9 +420,7 @@ elif section == "Charts / Visualizations":
     else:
         st.info("This chart requires validation_log_loss and validation_auc.")
 
-    # -----------------------------
     # Pareto Frontier
-    # -----------------------------
 
     st.markdown("### 3. Champion Candidate Shortlist")
 
@@ -478,9 +454,7 @@ elif section == "Charts / Visualizations":
 
     build_aggrid_table(candidate_table, height=320)
 
-    # -----------------------------
     # Composite score
-    # -----------------------------
 
     st.markdown("### 4. Composite Selection Score")
 
@@ -608,9 +582,7 @@ elif section == "Charts / Visualizations":
     else:
         st.info("Selection score chart requires selection_score and auc_gap.")
 
-# ---------------------------------------
-# BEST MODEL BY FAMILY
-# ---------------------------------------
+# Best model by family
 
 elif section == "Best Model by Family":
     st.subheader("Best Model by Family")
@@ -648,9 +620,7 @@ elif section == "Best Model by Family":
 
     build_aggrid_table(family_display, height=330)
 
-# ---------------------------------------
-# INITIAL INTERPRETATION
-# ---------------------------------------
+# Initial interpretation
 
 elif section == "Initial Interpretation":
     st.subheader("Initial Interpretation")
@@ -680,9 +650,7 @@ elif section == "Initial Interpretation":
     """
     )
 
-# ---------------------------------------
-# ENSEMBLE DIVERSITY SCORE
-# ---------------------------------------
+# Ensemble Diversity Score
 
 elif section == "Ensemble Diversity Score":
     st.subheader("Ensemble Diversity Score")
