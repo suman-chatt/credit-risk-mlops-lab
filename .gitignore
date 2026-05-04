@@ -33,6 +33,7 @@ outputs/
 outputs_src/*
 
 # Allow selected Streamlit app outputs
+!data/cs-training.csv
 !outputs_src/registry/
 !outputs_src/registry/model_summary.csv
 !outputs_src/registry/model_metrics.csv
