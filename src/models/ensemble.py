@@ -29,9 +29,7 @@ from src.models.model_registry import add_diagnostics, add_model_record
 from src.models.mlflow_utils import log_model_to_mlflow
 
 
-# --------------------------------------------------
-# Serializable ensemble model classes
-# --------------------------------------------------
+# ensemble model classes
 
 class EqualAverageEnsemble:
     """
@@ -89,10 +87,7 @@ class RankAverageEnsemble:
         score = np.clip(score, 1e-6, 1 - 1e-6)
         return np.column_stack([1 - score, score])
 
-
-# --------------------------------------------------
-# Utilities
-# --------------------------------------------------
+# Helper Functions
 
 def parse_features(feature_string: str) -> list[str]:
     return [x.strip() for x in feature_string.split(",") if x.strip()]
@@ -355,10 +350,7 @@ def optimize_blend_weights(
 
     return normalize_weights(result.x)
 
-
-# --------------------------------------------------
 # Ensemble tournament
-# --------------------------------------------------
 
 def run_ensemble_tournament(
     registry: dict,

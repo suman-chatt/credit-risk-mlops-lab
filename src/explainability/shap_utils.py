@@ -7,11 +7,6 @@ def sample_for_explainability(
     sample_size: int = 1000,
     random_state: int = 42,
 ) -> pd.DataFrame:
-    """
-    Sample rows for SHAP explainability.
-
-    SHAP can be expensive, so we explain a representative sample.
-    """
 
     if len(df) <= sample_size:
         return df.copy()

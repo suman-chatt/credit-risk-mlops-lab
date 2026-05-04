@@ -1,26 +1,3 @@
-"""
-Export standardized interpretability artifacts for Streamlit review.
-
-Run from project root:
-
-    python -m src.interpretability.export_interpretability_outputs
-
-Outputs are saved under:
-
-    outputs_src/interpretability/
-
-This version extracts real interpretability artifacts where available:
-- statsmodels logistic coefficients, p-values, standard errors, z-stats, odds ratios
-- sklearn logistic coefficients and odds ratios
-- tree / boosting feature importances
-- ensemble weights and stacking meta-model importances
-- model-level governance checks
-
-Model search paths:
-- outputs_src/models/
-- outputs_src/ensemble/models/
-"""
-
 from __future__ import annotations
 
 import ast
@@ -32,10 +9,7 @@ import joblib
 import numpy as np
 import pandas as pd
 
-
-# --------------------------------------------------
-# Paths / constants
-# --------------------------------------------------
+# Paths
 
 PROJECT_ROOT = Path.cwd()
 OUTPUTS_DIR = PROJECT_ROOT / "outputs_src"
@@ -62,10 +36,7 @@ GOVERNANCE_DIR = INTERP_DIR / "governance"
 MODELERS_DEFAULT_MODEL_ID = "CAT002"
 BEST_AUC_MODEL_ID = "XGBSTACK001"
 
-
-# --------------------------------------------------
 # Setup
-# --------------------------------------------------
 
 def ensure_dirs() -> None:
     for path in [
@@ -122,10 +93,7 @@ def load_registry() -> pd.DataFrame:
 
     return df
 
-
-# --------------------------------------------------
 # Utility functions
-# --------------------------------------------------
 
 def safe_parse_params(value: Any) -> Any:
     if value is None:
@@ -306,10 +274,7 @@ def get_model_feature_names(model: Any, registry_features: list[str]) -> list[st
 
     return registry_features
 
-
-# --------------------------------------------------
 # Summary export
-# --------------------------------------------------
 
 def export_summary_outputs(df: pd.DataFrame) -> None:
     data = add_selection_score(df)
@@ -353,10 +318,7 @@ def export_summary_outputs(df: pd.DataFrame) -> None:
     summary.to_csv(SUMMARY_DIR / "interpretability_model_summary.csv", index=False)
     summary.to_excel(SUMMARY_DIR / "interpretability_model_summary.xlsx", index=False)
 
-
-# --------------------------------------------------
 # Logistic coefficients
-# --------------------------------------------------
 
 def export_logistic_outputs(df: pd.DataFrame) -> None:
     logistic_df = df[df["model_family"].astype(str).str.lower() == "logistic"].copy()
@@ -511,10 +473,7 @@ def export_logistic_outputs(df: pd.DataFrame) -> None:
     out.to_csv(LOGISTIC_DIR / "logistic_coefficients_summary.csv", index=False)
     out.to_excel(LOGISTIC_DIR / "logistic_coefficients_summary.xlsx", index=False)
 
-
-# --------------------------------------------------
 # Feature importance
-# --------------------------------------------------
 
 def extract_feature_importance(model: Any, feature_names: list[str]) -> tuple[np.ndarray | None, str]:
     # CatBoost
@@ -663,10 +622,7 @@ def export_feature_importance_outputs(df: pd.DataFrame) -> None:
     out.to_csv(FEATURE_IMPORTANCE_DIR / "feature_importance_summary.csv", index=False)
     out.to_excel(FEATURE_IMPORTANCE_DIR / "feature_importance_summary.xlsx", index=False)
 
-
-# --------------------------------------------------
 # Ensemble interpretability
-# --------------------------------------------------
 
 def export_ensemble_outputs(df: pd.DataFrame) -> None:
     ensemble_df = df[df["model_family"].astype(str).str.lower() == "ensemble"].copy()

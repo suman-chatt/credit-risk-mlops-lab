@@ -54,7 +54,3 @@ def log_model_to_mlflow(
             metric_value = _safe_metric_value(value)
             if metric_value is not None:
                 mlflow.log_metric(f"validation_{key}", metric_value)
-
-        # Avoid model artifact logging for now.
-        # Your existing registry already saves models via joblib.
-        # This keeps MLflow focused on experiment tracking and avoids MLflow 3 artifact-store weirdness.

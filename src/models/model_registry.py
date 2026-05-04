@@ -298,22 +298,6 @@ def flatten_simple_tables(tables: dict, id_col: str) -> pd.DataFrame:
 
     return pd.concat(frames, ignore_index=True)
 
-def add_feature_importance_table(
-    registry: dict,
-    model_id: str,
-    feature_importance_table: pd.DataFrame,
-) -> dict:
-    """
-    Store feature importance table for a given model.
-    """
-
-    if "feature_importance_tables" not in registry:
-        registry["feature_importance_tables"] = {}
-
-    registry["feature_importance_tables"][model_id] = feature_importance_table
-
-    return registry
-
 
 def export_registry_artifacts(
     registry: dict,
@@ -344,9 +328,7 @@ def export_registry_artifacts(
     diagnostics_dir.mkdir(parents=True, exist_ok=True)
     models_dir.mkdir(parents=True, exist_ok=True)
 
-    # -------------------------
     # Core registry tables
-    # -------------------------
 
     summary_df = registry_to_summary_dataframe(registry)
     metrics_df = registry_to_metrics_dataframe(registry)
@@ -357,9 +339,7 @@ def export_registry_artifacts(
     metrics_df.to_parquet(registry_dir / "model_metrics.parquet", index=False)
     metrics_df.to_csv(registry_dir / "model_metrics.csv", index=False)
 
-    # -------------------------
     # Diagnostics for Streamlit
-    # -------------------------
 
     diagnostic_exports = {
         "lift_tables": flatten_diagnostic_tables(
@@ -389,9 +369,7 @@ def export_registry_artifacts(
             df.to_parquet(diagnostics_dir / f"{name}.parquet", index=False)
             df.to_csv(diagnostics_dir / f"{name}.csv", index=False)
 
-    # -------------------------
     # Model explanation tables
-    # -------------------------
 
     vif_df = flatten_simple_tables(registry["vif_tables"], "model_id")
     coef_df = flatten_simple_tables(registry["coefficient_tables"], "model_id")
@@ -418,18 +396,14 @@ def export_registry_artifacts(
             index=False,
         )
 
-    # -------------------------
     # Metadata
-    # -------------------------
 
     with open(registry_dir / "split_metadata.json", "w") as f:
         json.dump(registry["split_metadata"], f, indent=4)
 
     artifact_paths = {}
 
-    # -------------------------
     # Save fitted models
-    # -------------------------
 
     if save_models:
         for model_id, model in registry["models"].items():

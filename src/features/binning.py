@@ -49,10 +49,7 @@ def apply_final_binning(df: pd.DataFrame) -> pd.DataFrame:
     """
 
     df_out = df.copy()
-
-    # ------------------------------------------------------------
     # Revolving utilization
-    # ------------------------------------------------------------
     df_out["RevolvingUtilization_final_bin"] = pd.cut(
         df_out["RevolvingUtilizationOfUnsecuredLines"],
         bins=[-0.001, 0, 0.05, 0.15, 0.30, 0.50, 0.75, 1.00, np.inf],
@@ -70,9 +67,7 @@ def apply_final_binning(df: pd.DataFrame) -> pd.DataFrame:
         include_lowest=True,
     )
 
-    # ------------------------------------------------------------
     # Age
-    # ------------------------------------------------------------
     df_out["age_final_bin_v2"] = pd.cut(
         df_out["age"],
         bins=[20, 39, 49, 59, 69, np.inf],
@@ -87,9 +82,7 @@ def apply_final_binning(df: pd.DataFrame) -> pd.DataFrame:
         include_lowest=True,
     )
 
-    # ------------------------------------------------------------
     # Open credit lines
-    # ------------------------------------------------------------
     # Retained for consistency with Notebook 03 WOE review.
     # Not currently included in FINAL_BIN_COLS.
     df_out["OpenCreditLines_final_bin_v2"] = pd.cut(
@@ -108,9 +101,7 @@ def apply_final_binning(df: pd.DataFrame) -> pd.DataFrame:
         include_lowest=True,
     )
 
-    # ------------------------------------------------------------
     # Monthly income
-    # ------------------------------------------------------------
     df_out["MonthlyIncome_final_bin"] = pd.cut(
         df_out["MonthlyIncome_median"],
         bins=[-0.001, 5000, 10000, np.inf],
@@ -123,17 +114,7 @@ def apply_final_binning(df: pd.DataFrame) -> pd.DataFrame:
         include_lowest=True,
     )
 
-    # ------------------------------------------------------------
     # DebtRatio
-    # ------------------------------------------------------------
-    # Notebook 03 reviewed DebtRatio behavior but mainly used
-    # DebtRatio_high_flag in the final WOE variable set.
-    #
-    # We keep both:
-    # - DebtRatio_high_flag_bin: original final notebook behavior
-    # - DebtRatio_explicit_bin: candidate explicit DebtRatio binning
-    #
-    # This allows controlled testing without losing the original logic.
 
     df_out["DebtRatio_final_bin"] = pd.cut(
         df_out["DebtRatio"],
@@ -165,9 +146,7 @@ def apply_final_binning(df: pd.DataFrame) -> pd.DataFrame:
         include_lowest=True,
     )
 
-    # ------------------------------------------------------------
     # Real estate loans / lines
-    # ------------------------------------------------------------
     df_out["RealEstateLoans_final_bin"] = pd.cut(
         df_out["NumberRealEstateLoansOrLines"],
         bins=[-0.001, 0, 2, np.inf],
@@ -180,9 +159,7 @@ def apply_final_binning(df: pd.DataFrame) -> pd.DataFrame:
         include_lowest=True,
     )
 
-    # ------------------------------------------------------------
     # Number of dependents
-    # ------------------------------------------------------------
     df_out["NumberOfDependents_final_bin"] = np.select(
         [
             df_out["NumberOfDependents_median"] == 0,
@@ -194,9 +171,7 @@ def apply_final_binning(df: pd.DataFrame) -> pd.DataFrame:
         default="unknown",
     )
 
-    # ------------------------------------------------------------
     # Delinquency count variables
-    # ------------------------------------------------------------
     delinquency_vars = [
         "NumberOfTime30-59DaysPastDueNotWorse",
         "NumberOfTime60-89DaysPastDueNotWorse",
@@ -214,10 +189,7 @@ def apply_final_binning(df: pd.DataFrame) -> pd.DataFrame:
             ["0", "1", "2", "3+"],
             default="unknown",
         )
-
-    # ------------------------------------------------------------
     # Binary flags as string bins
-    # ------------------------------------------------------------
     binary_flags = [
         "DebtRatio_high_flag",
         "MonthlyIncome_missing_flag",
