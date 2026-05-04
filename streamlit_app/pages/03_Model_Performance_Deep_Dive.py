@@ -238,8 +238,6 @@ def validation_only(data: pd.DataFrame, model_ids: list[str]) -> pd.DataFrame:
 
 st.markdown(
     """
-This page reviews **validation-set performance only**. It does not use the `cs-test.csv` scoring file and does not claim an out-of-time test.
-
 The purpose is to answer:
 
 **Which models perform well on validation data, and how do they behave across ranking, separation, calibration, lift, gains, and KS diagnostics?**
